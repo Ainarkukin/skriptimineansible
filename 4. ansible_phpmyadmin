@@ -1,0 +1,15 @@
+#phpmyadmin paigaldusskirpt
+
+PMA=$(dpkg-query -W -f='${Status}' phpmyadmin 2˃/dev/null | grep -c 'ok installed')
+#kui pma muutuja väärtus võrdub 0ga
+if [ $PMA -eq 0 ]; then
+        echo "paigaldame php"
+        apt install phpmyadmin
+        echo "paigaltaud"
+elif [ $PMA -eq 1 ]; then
+        echo "php on juba paigaldatud"
+fi
+#lõpp
+
+
+
