@@ -1,0 +1,24 @@
+---
+- hosts: webserver
+  tasks:
+    - name: install apache2
+      apt: name=apache2 update_cache=yes state=latest
+    - name: Loome publib_html kataloog user_ile
+      file:
+       path=/home/user/public_html
+       owner=user
+       group=user
+       mode=0755
+       state=directory
+    - name: Apache2 serverile alg
+      service:
+        name: apache2
+        state: restarted
+    - name: kopeerimine index.html
+      copy:
+        src: /var/www/html/index.html
+        dest: /home/user/public_hyml/
+        remote_src: yes
+        owner: user
+        group: user
+
