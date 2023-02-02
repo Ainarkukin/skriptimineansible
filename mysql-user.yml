@@ -1,0 +1,26 @@
+---
+- hosts: webservers
+  tasks:
+  - name: python-mysqldb install
+    apt:
+       name=python-mysqldb
+       update_cache=yes
+       state=latest
+  - name: kasutaja "Root" "qwerty"
+    mysql_user:
+      name: root
+      password: qwerty
+      priv: '*.*:ALL,GRANT'
+      state: present
+  - name: root login fail
+    copy:
+      dest: /root/.my.cnf
+      owner: root
+      group: root
+      mode: 0600
+      content: |
+          [client]
+          user=root
+          password=qwerty
+  - name: alglaeme mysql
+    service: name=mysql state=restarted
